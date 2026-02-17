@@ -1,0 +1,8 @@
+{
+  "games": [
+    { "name": "Snake Extreme", "engine": "arcade", "mode": "snake" },
+    { "name": "Pong Turbo", "engine": "arcade", "mode": "pong" },
+    { "name": "Breakout Pro", "engine": "arcade", "mode": "breakout" },
+    { "name": "Endless Runner", "engine": "arcade", "mode": "runner" }
+  ]
+}
