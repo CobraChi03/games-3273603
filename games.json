@@ -1,9 +1,9 @@
 {
   "games": [
-    {
-      "name": "Google Atari Breakout",
-      "url": "https://www.gstatic.com/atari/embeds/83a60601c213b72fb19c1855fb0c5f26/intermediate-frame-minified.html",
-      "category": "Arcade"
-    }
+    { "name": "Snake Classic", "url": "games/snake.html", "category": "Arcade" },
+    { "name": "Pong", "url": "games/pong.html", "category": "Arcade" },
+    { "name": "Breakout", "url": "games/breakout.html", "category": "Arcade" },
+    { "name": "Flappy Clone", "url": "games/flappy.html", "category": "Arcade" },
+    { "name": "2048 Clone", "url": "games/2048.html", "category": "Puzzle" }
   ]
 }
