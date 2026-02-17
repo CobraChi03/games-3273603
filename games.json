@@ -1,9 +1,7 @@
 {
-  "games": [
-    { "name": "Snake Classic", "url": "games/snake.html", "category": "Arcade" },
-    { "name": "Pong", "url": "games/pong.html", "category": "Arcade" },
-    { "name": "Breakout", "url": "games/breakout.html", "category": "Arcade" },
-    { "name": "Flappy Clone", "url": "games/flappy.html", "category": "Arcade" },
-    { "name": "2048 Clone", "url": "games/2048.html", "category": "Puzzle" }
+  "packs": [
+    { "name": "Arcade Pack", "file": "packs/arcade-pack.json" },
+    { "name": "Puzzle Pack", "file": "packs/puzzle-pack.json" },
+    { "name": "Shooter Pack", "file": "packs/shooter-pack.json" }
   ]
 }
