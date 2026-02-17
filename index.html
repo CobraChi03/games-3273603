@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unblocked Games Hub</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        header {
+            background: #111827;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            color: #38bdf8;
+        }
+
+        .search-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        #search {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+            width: 200px;
+        }
+
+        .ddg-form input {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+            width: 200px;
+        }
+
+        .ddg-form button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            background: #22c55e;
+            color: black;
+            font-weight: bold;
+        }
+
+        .layout {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #111827;
+            border-right: 1px solid #1f2937;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+
+        .category {
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .category:hover, .category.active {
+            background: #1f2937;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .game-card {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            border: 1px solid #1f2937;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            background: #334155;
+        }
+
+        .game-card h4 {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+
+        #game-container {
+            display: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 80vh;
+            border-radius: 12px;
+            border: none;
+            background: black;
+        }
+
+        .back-btn {
+            margin-bottom: 15px;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #38bdf8;
+            color: black;
+            font-weight: bold;
+        }
+
+        .back-btn:hover { opacity: 0.8; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Unblocked Games Hub</h1>
+
+    <div class="search-group">
+        <!-- Game Search -->
+        <input type="text" id="search" placeholder="Search games...">
+
+        <!-- DuckDuckGo Search (opens in new tab) -->
+        <form class="ddg-form" action="https://duckduckgo.com/" method="GET" target="_blank">
+            <input type="text" name="q" placeholder="Search the web...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</header>
+
+<div class="layout">
+    <div class="sidebar">
+        <h3>Categories</h3>
+        <div id="categories"></div>
+    </div>
+
+    <div class="content">
+        <div id="game-list"></div>
+
+        <div id="game-container">
+            <button class="back-btn" id="back-btn">⬅ Back</button>
+            <iframe id="game-frame"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+const gameList = document.getElementById("game-list");
+const gameContainer = document.getElementById("game-container");
+const gameFrame = document.getElementById("game-frame");
+const backBtn = document.getElementById("back-btn");
+const searchInput = document.getElementById("search");
+const categoriesDiv = document.getElementById("categories");
+
+let gamesData = [];
+let activeCategory = "All";
+
+fetch("games.json")
+    .then(res => res.json())
+    .then(data => {
+        gamesData = data.games;
+        setupCategories();
+        renderGames();
+    })
+    .catch(() => {
+        gameList.innerHTML = "<p>Failed to load games.json</p>";
+    });
+
+function setupCategories() {
+    const categories = ["All", ...new Set(gamesData.map(g => g.category))];
+    categories.forEach(cat => {
+        const div = document.createElement("div");
+        div.textContent = cat;
+        div.className = "category";
+        if (cat === "All") div.classList.add("active");
+        div.onclick = () => {
+            document.querySelectorAll(".category").forEach(c => c.classList.remove("active"));
+            div.classList.add("active");
+            activeCategory = cat;
+            renderGames();
+        };
+        categoriesDiv.appendChild(div);
+    });
+}
+
+function renderGames() {
+    const searchTerm = searchInput.value.toLowerCase();
+    gameList.innerHTML = "";
+
+    const filtered = gamesData.filter(game => {
+        const matchesCategory = activeCategory === "All" || game.category === activeCategory;
+        const matchesSearch = game.name.toLowerCase().includes(searchTerm);
+        return matchesCategory && matchesSearch;
+    });
+
+    filtered.forEach(game => {
+        const card = document.createElement("div");
+        card.className = "game-card";
+        card.innerHTML = `<h4>${game.name}</h4>`;
+        card.onclick = () => loadGame(game.url);
+        gameList.appendChild(card);
+    });
+}
+
+function loadGame(url) {
+    gameFrame.src = url;
+    gameList.classList.add("hidden");
+    gameContainer.style.display = "block";
+}
+
+backBtn.onclick = () => {
+    gameFrame.src = "";
+    gameContainer.style.display = "none";
+    gameList.classList.remove("hidden");
+};
+
+searchInput.addEventListener("input", renderGames);
+</script>
+
+</body>
+</html>
