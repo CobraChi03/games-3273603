@@ -1,0 +1,9 @@
+{
+  "games": [
+    {
+      "name": "Google Atari Breakout",
+      "url": "https://www.gstatic.com/atari/embeds/83a60601c213b72fb19c1855fb0c5f26/intermediate-frame-minified.html",
+      "category": "Arcade"
+    }
+  ]
+}
