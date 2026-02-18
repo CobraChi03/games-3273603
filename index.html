@@ -167,7 +167,7 @@ canvas {
 
 
 <!-- ARCADE SCREEN -->
-<div id="arcade" style="display:flex;">
+<div id="arcade" style="display:none;">
   <div id="sidebar">
     <h2>🌑 Nyx Arcade</h2>
     <input type="text" id="search" placeholder="Search games...">
@@ -248,6 +248,13 @@ searchInput.addEventListener("input", ()=>{
 });
 
 loadPacks();
+
+<script>
+function enterArcade() {
+  document.getElementById("landing").style.display = "none";
+  document.getElementById("arcade").style.display = "flex";
+}
+</script>
 
 </script>
 
