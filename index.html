@@ -24,12 +24,6 @@ body {
   text-align:center;
 }
 
-#landing h1 {
-  font-size:60px;
-  color:#9c27ff;
-  margin-bottom:40px;
-  letter-spacing:3px;
-}
 
 .landing-btn {
   padding:15px 40px;
@@ -110,14 +104,18 @@ canvas {
 <body>
 
 <!-- LANDING SCREEN -->
-<div id="landing">
-  <h1>NYX NETWORK</h1>
-  <button class="landing-btn" onclick="enterArcade()">Enter Arcade</button>
-<button class="landing-btn" onclick="window.open('https://poki.com','_blank')">
-  Online Games
-</button>
-  <button class="landing-btn">Tools</button>
+<div id="landing" class="landing">
+  <div class="landing-content">
+    <h1 class="logo">NYX NETWORK</h1>
+    <p class="subtitle">Enter the system</p>
+
+    <div class="landing-buttons">
+      <button onclick="enterArcade()">Enter Arcade</button>
+      <button onclick="window.open('https://poki.com','_blank')">Online Games</button>
+    </div>
+  </div>
 </div>
+
 
 <!-- ARCADE SCREEN -->
 <div id="arcade" style="display:flex;">
