@@ -1,9 +1,19 @@
 {
   "games": [
     {
+      "name": "Space Shooter",
+      "engine": "arcade",
+      "mode": "shooter"
+    },
+    {
       "name": "Speed Mode",
       "engine": "arcade",
       "mode": "speed"
+    },
+    {
+      "name": "Hard Mode",
+      "engine": "arcade",
+      "mode": "hard"
     }
   ]
 }
