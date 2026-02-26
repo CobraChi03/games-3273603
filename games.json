@@ -2,6 +2,5 @@
   "packs": [
     { "name": "Arcade Pack", "file": "packs/arcade-pack.json" },
     { "name": "Puzzle Pack", "file": "packs/puzzle-pack.json" },
-    { "name": "Shooter Pack", "file": "packs/shooter-pack.json" }
   ]
 }
