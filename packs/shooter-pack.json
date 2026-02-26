@@ -1,0 +1,9 @@
+{
+  "games": [
+    {
+      "name": "Neon Shooter",
+      "engine": "arcade",
+      "mode": "shooter"
+    }
+  ]
+}
