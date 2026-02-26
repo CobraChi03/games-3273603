@@ -40,7 +40,89 @@ function pong() {
   }
   loop();
 }
+function shooter() {
 
+  let player = { x: 280, y: 340, width: 40, height: 40, speed: 6 };
+  let bullets = [];
+  let enemies = [];
+  let score = 0;
+
+  function isColliding(a,b){
+    return a.x < b.x + b.width &&
+           a.x + a.width > b.x &&
+           a.y < b.y + b.height &&
+           a.y + a.height > b.y;
+  }
+
+  function loop(){
+    ctx.fillStyle="#050010";
+    ctx.fillRect(0,0,600,400);
+
+    // Player movement
+    if(keys["ArrowLeft"]) player.x -= player.speed;
+    if(keys["ArrowRight"]) player.x += player.speed;
+
+    player.x = Math.max(0, Math.min(560, player.x));
+
+    // Shoot
+    if(keys[" "]){
+      bullets.push({
+        x: player.x + 18,
+        y: player.y,
+        width: 6,
+        height: 12,
+        speed: 8
+      });
+    }
+
+    // Draw player
+    ctx.fillStyle="#9c27ff";
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+
+    // Update bullets
+    ctx.fillStyle="#00f7ff";
+    bullets.forEach((b,i)=>{
+      b.y -= b.speed;
+      ctx.fillRect(b.x,b.y,b.width,b.height);
+      if(b.y<0) bullets.splice(i,1);
+    });
+
+    // Spawn enemies
+    if(Math.random()<0.02){
+      enemies.push({
+        x: Math.random()*560,
+        y: -40,
+        width: 40,
+        height: 40,
+        speed: 2
+      });
+    }
+
+    // Update enemies
+    ctx.fillStyle="#ff006e";
+    enemies.forEach((e,ei)=>{
+      e.y += e.speed;
+      ctx.fillRect(e.x,e.y,e.width,e.height);
+
+      bullets.forEach((b,bi)=>{
+        if(isColliding(b,e)){
+          enemies.splice(ei,1);
+          bullets.splice(bi,1);
+          score += 10;
+        }
+      });
+    });
+
+    // Score
+    ctx.fillStyle="white";
+    ctx.font="18px Arial";
+    ctx.fillText("Score: "+score,20,30);
+
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+}
 if(mode==="snake") snake();
 if(mode==="pong") pong();
 }
